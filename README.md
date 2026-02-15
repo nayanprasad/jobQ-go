@@ -33,6 +33,6 @@ goose up
 ```
 
 
-## dirver
+## postgres driver
 go get github.com/jackc/pgx/v5 
 
