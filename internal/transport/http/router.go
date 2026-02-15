@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/nayanprasad/jobQ-go/internal/service"
-	"github.com/nayanprasad/jobQ-go/internal/storage/postgres"
-	"github.com/nayanprasad/jobQ-go/internal/transport/http/handler"
+	"github.com/nayanprasad/jobq-go/internal/service"
+	"github.com/nayanprasad/jobq-go/internal/storage/postgres"
+	"github.com/nayanprasad/jobq-go/internal/transport/http/handler"
 )
 
 func NewRouter(s *Server) http.Handler {

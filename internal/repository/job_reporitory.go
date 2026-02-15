@@ -2,7 +2,8 @@ package repository
 
 import (
 	"context"
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
+
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
 )
 
 // this define contract not storing logic here

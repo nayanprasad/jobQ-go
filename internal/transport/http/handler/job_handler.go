@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job/command"
-	"github.com/nayanprasad/jobQ-go/internal/service"
-	"github.com/nayanprasad/jobQ-go/pkg/json"
+	"github.com/nayanprasad/jobq-go/internal/domain/job/command"
+	"github.com/nayanprasad/jobq-go/internal/service"
+	"github.com/nayanprasad/jobq-go/pkg/json"
 )
 
 type JobHandler struct {

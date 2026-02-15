@@ -4,9 +4,9 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
-	"github.com/nayanprasad/jobQ-go/internal/domain/job/command"
-	"github.com/nayanprasad/jobQ-go/internal/repository"
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
+	"github.com/nayanprasad/jobq-go/internal/domain/job/command"
+	"github.com/nayanprasad/jobq-go/internal/repository"
 )
 
 type JobService interface {

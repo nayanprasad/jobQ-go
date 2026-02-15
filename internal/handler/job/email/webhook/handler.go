@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
-	"github.com/nayanprasad/jobQ-go/pkg/json"
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
+	"github.com/nayanprasad/jobq-go/pkg/json"
 )
 
 type WebhookHandler struct {

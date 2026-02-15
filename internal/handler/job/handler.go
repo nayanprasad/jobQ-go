@@ -3,7 +3,7 @@ package job
 import (
 	"context"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
 )
 
 type Handler interface {

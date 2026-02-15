@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
 )
 
 type CreateJobCommand struct {

@@ -1,4 +1,4 @@
-module github.com/nayanprasad/jobQ-go
+module github.com/nayanprasad/jobq-go
 
 go 1.24.3
 

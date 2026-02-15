@@ -4,7 +4,7 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/nayanprasad/jobQ-go/internal/domain/job"
+	"github.com/nayanprasad/jobq-go/internal/domain/job"
 )
 
 type HandlerRegistry struct {

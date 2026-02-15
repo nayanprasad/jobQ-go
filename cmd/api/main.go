@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/nayanprasad/jobQ-go/internal/appConfig"
-	"github.com/nayanprasad/jobQ-go/internal/transport/http"
+	"github.com/nayanprasad/jobq-go/internal/appConfig"
+	"github.com/nayanprasad/jobq-go/internal/transport/http"
 	"gopkg.in/yaml.v3"
 )
 
