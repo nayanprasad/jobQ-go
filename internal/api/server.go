@@ -1,11 +1,8 @@
-package server
+package api
 
 import (
 	"log/slog"
 	"net/http"
-
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 )
 
 type Config struct {
@@ -23,17 +20,8 @@ func New(cnf Config) *Server {
 	}
 }
 
-func (*Server) Mount() http.Handler {
-	r := chi.NewRouter()
-
-	r.Use(middleware.Logger)
-
-	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("pong"))
-	})
-
-	return r
+func (s *Server) Mount() http.Handler {
+	return NewRouter(s)
 }
 
 func (s *Server) Run(h http.Handler) error {

@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/nayanprasad/jobQ-go/internal/server"
+	"github.com/nayanprasad/jobQ-go/internal/api"
 	"gopkg.in/yaml.v3"
 )
 
@@ -29,15 +29,15 @@ func main() {
 	}
 
 	// server setup
-	cnf := server.Config{
+	cnf := api.Config{
 		Addr: fmt.Sprintf(":%d", appConfig.Server.Port),
 		DSN:  appConfig.Server.DB.DSN,
 	}
 
-	svr := server.New(cnf)
+	app := api.New(cnf)
 
-	h := svr.Mount()
-	if err := svr.Run(h); err != nil {
+	h := app.Mount()
+	if err := app.Run(h); err != nil {
 		slog.Error("failied start the server", "error", err.Error())
 		os.Exit(1)
 	}
