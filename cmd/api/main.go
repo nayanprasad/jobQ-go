@@ -3,6 +3,8 @@ package main
 import (
 	"log/slog"
 	"os"
+
+	"github.com/nayanprasad/jobQ-go/internal/server"
 )
 
 func main() {
@@ -10,5 +12,18 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, opts))
 	slog.SetDefault(logger)
 
-	logger.Debug("ping")
+	slog.Debug("ping")
+
+	cnf := server.Config{
+		Addr: ":5055",
+		DSN:  "",
+	}
+
+	svr := server.New(cnf)
+
+	h := svr.Mount()
+	if err := svr.Run(h); err != nil {
+		slog.Error("failied start the server", "error", err.Error())
+		os.Exit(1)
+	}
 }
