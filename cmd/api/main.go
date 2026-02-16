@@ -10,7 +10,6 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/nayanprasad/jobq-go/internal/appConfig"
 	"github.com/nayanprasad/jobq-go/internal/transport/http"
-	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -26,7 +25,7 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, opts))
 	slog.SetDefault(logger)
 
-	slog.Debug("ping")
+	slog.Debug("api")
 
 	//load .env
 	if err := godotenv.Load(); err != nil {
@@ -36,7 +35,7 @@ func main() {
 	}
 
 	//load config
-	appCnf, err := loadConfig(configPath)
+	appCnf, err := appConfig.LoadConfig(configPath)
 	if err != nil {
 		slog.Error("failed to load config", "error", err)
 		os.Exit(1)
@@ -65,20 +64,4 @@ func main() {
 		slog.Error("failied start the server", "error", err.Error())
 		os.Exit(1)
 	}
-}
-
-func loadConfig(path string) (*appConfig.AppConfig, error) {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// this will replace ${VAR} with actual values from the env
-	expanded := os.ExpandEnv(string(data))
-
-	var cfg appConfig.AppConfig
-	if err := yaml.Unmarshal([]byte(expanded), &cfg); err != nil {
-		return nil, err
-	}
-	return &cfg, nil
 }

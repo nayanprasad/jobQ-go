@@ -2,3 +2,9 @@ server:
   port: 5055
   db: 
     dsn: ${GOOSE_DBSTRING}
+worker:
+    poll-interval: 5000
+    job-timeout: 30000
+    retry-backoff: 100000
+    max-retries: 5
+    concurrency: 3

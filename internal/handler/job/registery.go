@@ -17,7 +17,7 @@ func NewRegistry() *HandlerRegistry {
 	}
 }
 
-func (hr *HandlerRegistry) Register(h Handler) error {
+func (r *HandlerRegistry) Register(h Handler) error {
 	jobType := h.Type()
 
 	if !jobType.IsValid() {
@@ -25,7 +25,11 @@ func (hr *HandlerRegistry) Register(h Handler) error {
 		return errors.New("Invalid job type " + string(jobType))
 	}
 
-	hr.handlers[h.Type()] = h
+	r.handlers[h.Type()] = h
 
 	return nil
+}
+
+func (r *HandlerRegistry) Get(j job.JobType) Handler {
+	return r.handlers[j]
 }

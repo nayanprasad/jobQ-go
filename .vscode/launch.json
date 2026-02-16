@@ -16,5 +16,17 @@
             "args": [],
             "showLog": true
         },
+
+        {
+            "name": "worker",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/cmd/worker",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [],
+            "showLog": true
+        },
     ]
 }
