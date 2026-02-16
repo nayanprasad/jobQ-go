@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"log/slog"
+	"time"
 
 	"github.com/nayanprasad/jobq-go/internal/domain/job"
 	"github.com/nayanprasad/jobq-go/internal/domain/job/command"
@@ -10,7 +11,7 @@ import (
 )
 
 type JobService interface {
-	CreateJob(ctx context.Context, args command.CreateJobCommand) error
+	CreateJob(ctx context.Context, args command.CreateJobCommand) (job.Job, error)
 }
 
 type svc struct {
@@ -23,7 +24,7 @@ func NewService(repo repository.JobRepository) *svc {
 	}
 }
 
-func (s *svc) CreateJob(ctx context.Context, cmd command.CreateJobCommand) error {
+func (s *svc) CreateJob(ctx context.Context, cmd command.CreateJobCommand) (job.Job, error) {
 
 	j := &job.Job{
 		Type:        cmd.JobType,
@@ -32,16 +33,24 @@ func (s *svc) CreateJob(ctx context.Context, cmd command.CreateJobCommand) error
 		MaxRetries:  cmd.MaxRetries,
 		RetryCount:  0,
 		Priority:    cmd.Priority,
-		AvailableAt: *cmd.ScheduledAt, // should validate this and set time
+		AvailableAt: determineAvailableAt(cmd.ScheduledAt),
 	}
 
 	createdJob, err := s.repo.Create(ctx, j)
 	if err != nil {
 		slog.Error("Error while creating job", "error", err.Error())
-		return err
+		return job.Job{}, err
 	}
 
 	slog.Info("created job", "job", createdJob)
 
-	return nil
+	return *createdJob, nil
+}
+
+func determineAvailableAt(t *time.Time) time.Time {
+	if t != nil && t.After(time.Now()) {
+		return *t
+	}
+
+	return time.Now()
 }

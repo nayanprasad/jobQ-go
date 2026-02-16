@@ -16,4 +16,9 @@ type CreateJobRequest struct {
 
 type CreateJobResponse struct {
 	Success bool `json:"success"`
+	Data    data `json:"data"`
+}
+
+type data struct {
+	Job job.Job `json:"job"`
 }

@@ -22,7 +22,7 @@ func NewHandler(s service.JobService) *JobHandler {
 
 func (h JobHandler) CreateJob(w http.ResponseWriter, r *http.Request) {
 	var reqBody CreateJobRequest
-	if err := json.ReadRequest(r, reqBody); err != nil {
+	if err := json.ReadRequest(r, &reqBody); err != nil {
 		slog.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -40,7 +40,7 @@ func (h JobHandler) CreateJob(w http.ResponseWriter, r *http.Request) {
 		cmd.ScheduledAt = &t
 	}
 
-	err := h.service.CreateJob(r.Context(), cmd)
+	j, err := h.service.CreateJob(r.Context(), cmd)
 	if err != nil {
 		slog.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -49,6 +49,9 @@ func (h JobHandler) CreateJob(w http.ResponseWriter, r *http.Request) {
 
 	res := CreateJobResponse{
 		Success: true,
+		Data: data{
+			Job: j,
+		},
 	}
 
 	json.WriteResponse(w, http.StatusCreated, res)
