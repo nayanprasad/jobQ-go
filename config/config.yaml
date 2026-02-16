@@ -1,4 +1,4 @@
 server:
   port: 5055
   db: 
-    dsn: "postgres://postgres:postgres@localhost:5432/jobq?sslmode=disable"
+    dsn: ${GOOSE_DBSTRING}

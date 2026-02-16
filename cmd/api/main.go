@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
 	"github.com/nayanprasad/jobq-go/internal/appConfig"
 	"github.com/nayanprasad/jobq-go/internal/transport/http"
 	"gopkg.in/yaml.v3"
@@ -26,6 +27,13 @@ func main() {
 	slog.SetDefault(logger)
 
 	slog.Debug("ping")
+
+	//load .env
+	if err := godotenv.Load(); err != nil {
+		slog.Warn("No .env file found, using system environment variables")
+	} else {
+		slog.Info("loaded .env file")
+	}
 
 	//load config
 	appCnf, err := loadConfig(configPath)
@@ -65,8 +73,11 @@ func loadConfig(path string) (*appConfig.AppConfig, error) {
 		return nil, err
 	}
 
+	// this will replace ${VAR} with actual values from the env
+	expanded := os.ExpandEnv(string(data))
+
 	var cfg appConfig.AppConfig
-	if err := yaml.Unmarshal(data, &cfg); err != nil {
+	if err := yaml.Unmarshal([]byte(expanded), &cfg); err != nil {
 		return nil, err
 	}
 	return &cfg, nil
